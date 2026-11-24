@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday Warisha 🎂</title>
+<style>
+:root{--bg:#fff0f6;--card:#ffffff;--tx:#3a1030;--ac:#ff4f9a;--ac2:#8f5cff;--mut:#7a5a70;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c0f1d;--card:#2b1830;--tx:#ffe9f4;--mut:#d3a9c4}}
+:root[data-theme="dark"]{--bg:#1c0f1d;--card:#2b1830;--tx:#ffe9f4;--mut:#d3a9c4}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,sans-serif;text-align:center;overflow-x:hidden}
+h1,h2{font-family:Georgia,"Times New Roman",serif}
+section{max-width:760px;margin:0 auto;padding:36px 18px}
+.hero h1{font-size:clamp(2.2rem,9vw,4.2rem);margin:.2em 0;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);min-height:1.6em;font-size:1.1rem}
+.card{background:var(--card);border-radius:20px;padding:20px;box-shadow:0 8px 28px rgba(143,92,255,.18)}
+button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:12px 24px;color:#fff;background:linear-gradient(90deg,var(--ac),var(--ac2));cursor:pointer;margin:6px;transition:transform .15s}
+button:hover{transform:scale(1.06)}
+.balloons{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.b{position:absolute;bottom:-90px;width:44px;height:56px;border-radius:50% 50% 48% 48%;opacity:.8;animation:up linear infinite}
+.b::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:30px;background:var(--mut)}
+@keyframes up{to{transform:translateY(-120vh) rotate(12deg)}}
+section,.hero{position:relative;z-index:1}
+canvas#c{position:fixed;inset:0;pointer-events:none;z-index:50}
+/* cake */
+.cake{position:relative;width:240px;margin:50px auto 10px}
+.tier{margin:0 auto;border-radius:12px 12px 6px 6px;position:relative}
+.t1{width:100px;height:46px;background:#ff9ecb}
+.t2{width:170px;height:56px;background:#ff6fb1}
+.t3{width:240px;height:66px;background:#d94a8f}
+.tier::before{content:"";position:absolute;top:0;left:0;right:0;height:14px;background:#fff;border-radius:12px 12px 50% 50%/12px 12px 14px 14px;opacity:.9}
+.plate{width:290px;height:12px;background:#c9b8d6;border-radius:50%;margin:0 auto}
+.candles{display:flex;justify-content:center;gap:16px;height:60px;align-items:flex-end}
+.cd{width:8px;height:34px;background:repeating-linear-gradient(#8f5cff 0 6px,#fff 6px 12px);border-radius:3px;position:relative;cursor:pointer}
+.fl{position:absolute;top:-20px;left:-4px;width:16px;height:22px;background:radial-gradient(#fff,#ffd23f 50%,#ff7a00);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:fl .3s infinite alternate}
+.cd.off .fl{display:none}
+@keyframes fl{to{transform:scale(1.15) rotate(6deg)}}
+.slice{display:none;width:60px;height:60px;margin:8px auto;font-size:44px}
+/* video */
+.video{border:3px dashed var(--ac);border-radius:20px;padding:28px 16px;background:var(--card)}
+/* list */
+.reasons{list-style:none;padding:0;text-align:left}
+.reasons li{background:var(--card);margin:10px 0;padding:12px 16px;border-radius:14px;border-left:5px solid var(--ac)}
+.gen{font-size:1.15rem;min-height:3.2em;display:flex;align-items:center;justify-content:center}
+.cert{border:4px double var(--ac2);padding:22px;border-radius:14px}
+/* hack modal */
+#hk{position:fixed;inset:0;background:#000;color:#39ff6a;font-family:ui-monospace,Consolas,monospace;z-index:100;display:none;padding:24px;text-align:left;overflow:auto}
+#hk .out{white-space:pre-wrap;font-size:clamp(.85rem,3.4vw,1.05rem)}
+#hk .joke{color:#fff;font-family:Georgia,serif;text-align:center;font-size:clamp(1.6rem,7vw,2.6rem);margin-top:24px;animation:pop .5s}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+footer{padding:30px 18px 50px;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="balloons" id="bl"></div>
+<canvas id="c"></canvas>
+
+<section class="hero">
+  <div style="font-size:3rem">🎉🎂🎈</div>
+  <h1>Happy Birthday, Warisha!</h1>
+  <p class="sub" id="typed"></p>
+  <p class="sub">💌 A gift from a mysterious anonymous person 🕵️</p>
+  <button onclick="boom()">🎊 Throw Confetti</button>
+  <button onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark'">🌙 Mood Switch</button>
+</section>
+
+<section>
+  <h2>Make a Wish &amp; Blow the Candles 🕯️</h2>
+  <p class="sub">Tap each candle to blow it out. All 5 out = wish granted (terms &amp; conditions apply).</p>
+  <div class="cake">
+    <div class="candles" id="cds"></div>
+    <div class="tier t1"></div><div class="tier t2"></div><div class="tier t3"></div>
+  </div>
+  <div class="plate"></div>
+  <p id="wish" class="sub"></p>
+  <button id="cut" style="display:none" onclick="cutCake()">🔪 Cut the Cake</button>
+  <div class="slice" id="slice">🍰</div>
+  <p id="cutmsg" class="sub"></p>
+</section>
+
+<section>
+  <h2>Birthday Video 🎬</h2>
+  <div class="video" id="vid"></div>
+</section>
+
+<section>
+  <h2>Official Reasons Why Warisha Is Awesome ✨</h2>
+  <ul class="reasons">
+    <li>😎 She is the main character, and everyone else is just background cast.</li>
+    <li>🍕 She can find snacks faster than Google Maps finds roads.</li>
+    <li>😂 Her laugh could fix a broken WiFi router.</li>
+    <li>💖 Kind heart, sharp mind, and zero patience for boring people.</li>
+    <li>📱 She replies “k” only when she is plotting something.</li>
+    <li>🛌 Professional napper, with a degree in “five more minutes”.</li>
+    <li>👑 If drama were a subject, she would be the topper.</li>
+    <li>🍫 Her love language is chocolate, and she accepts all donations.</li>
+    <li>🤳 Takes 47 selfies to post one, and still says “I look weird”.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Warisha’s Funny Line Machine 😂</h2>
+  <div class="card"><div class="gen" id="gen">Press the button for a birthday joke…</div></div>
+  <button onclick="funny()">😂 Make Me Laugh</button>
+  <button onclick="compliment()">💌 Compliment Me</button>
+</section>
+
+<section>
+  <div class="cert card">
+    <div style="font-size:2.2rem">🏆</div>
+    <h2>Certificate of Awesomeness</h2>
+    <p>This certifies that <b>Warisha</b> is officially a <b>Certified Legend</b>, level +1 unlocked today.<br>Powers: charm, sass, and eating the last slice without guilt.</p>
+    <p style="color:var(--mut)">Signed, Anonymous (Side Character &amp; Cake Assistant) 🎈</p>
+  </div>
+</section>
+
+<section>
+  <h2>A Message From Someone Mysterious 💌</h2>
+  <div class="card" style="text-align:left">
+    <p>Dear Warisha,</p>
+    <p>Happy Birthday! I built this whole website in secret, so please act impressed and clap. But don’t try to guess who I am. A good detective never reveals their name 🕵️👏</p>
+    <p>Thank you for being a friend who laughs at my jokes (even the bad ones) and never tells me when I am wrong. Okay, maybe sometimes you do 😅</p>
+    <p>I wish you a year full of laughter, good food, and zero Monday mornings. And if anyone is rude to you, just send me their name. I will give them a very serious look 😤</p>
+    <p>Now go eat the cake. I know you want to.</p>
+    <p style="text-align:right"><b>Your favourite side character,<br>Anonymous 🕵️💖</b></p>
+  </div>
+</section>
+
+<section>
+  <h2>One Last Thing… 👀</h2>
+  <button style="font-size:1.3rem;padding:16px 34px" onclick="hack()">🎁 Surprise</button>
+</section>
+
+<footer>Made with 💖 and way too much cake by <b>Anonymous</b></footer>
+
+<div id="hk"><div class="out" id="hko"></div><div class="joke" id="hkj" style="display:none"></div><div style="text-align:center"><button id="hkb" style="display:none" onclick="closeHack()">Phew, back to the party 🎂</button></div></div>
+
+<script>
+/* ===== EDIT HERE: paste your video link between the quotes ===== */
+var VIDEO_LINK = "";
+/* =============================================================== */
+
+var cols=["#ff4f9a","#8f5cff","#ffd23f","#3ddc97","#4cc9f0","#ff7a00"];
+// balloons
+var bl=document.getElementById("bl");
+for(var i=0;i<14;i++){var d=document.createElement("div");d.className="b";d.style.left=(Math.random()*95)+"%";d.style.background=cols[i%cols.length];d.style.animationDuration=(9+Math.random()*10)+"s";d.style.animationDelay=(-Math.random()*14)+"s";bl.appendChild(d);}
+// typing
+var msg="Another year older, zero years wiser, 100% more fabulous 💃";var ti=0,tp=document.getElementById("typed");
+(function t(){if(ti<=msg.length){tp.textContent=msg.slice(0,ti++);setTimeout(t,55)}})();
+// confetti
+var cv=document.getElementById("c"),cx=cv.getContext("2d"),ps=[];
+function rs(){cv.width=innerWidth;cv.height=innerHeight}rs();addEventListener("resize",rs);
+function boom(){for(var i=0;i<160;i++)ps.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*16,vy:Math.random()*-14-2,s:4+Math.random()*6,c:cols[i%cols.length],r:Math.random()*6});loop()}
+var run=false;
+function loop(){if(run)return;run=true;(function f(){cx.clearRect(0,0,cv.width,cv.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.r+=.2;cx.fillStyle=p.c;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});ps=ps.filter(function(p){return p.y<cv.height+20});if(ps.length)requestAnimationFrame(f);else{run=false;cx.clearRect(0,0,cv.width,cv.height)}})()}
+// candles
+var cds=document.getElementById("cds"),left=5;
+for(var k=0;k<5;k++){var c=document.createElement("div");c.className="cd";c.innerHTML='<div class="fl"></div>';c.onclick=function(){if(this.classList.contains("off"))return;this.classList.add("off");left--;if(left===0){document.getElementById("wish").textContent="Wish granted! 🌟 (Delivery in 3–5 business years.)";document.getElementById("cut").style.display="inline-block";boom()}else{document.getElementById("wish").textContent=left+" candle"+(left>1?"s":"")+" to go… keep blowing 💨"}};cds.appendChild(c)}
+function cutCake(){var s=document.getElementById("slice");s.style.display="block";document.getElementById("cutmsg").textContent="Yum! Calories don’t count on birthdays. That’s science. 🧪"}
+// video
+var v=document.getElementById("vid");
+if(VIDEO_LINK){v.innerHTML='<p>A special video for you 💝</p>';var a=document.createElement("a");a.href=VIDEO_LINK;a.target="_blank";a.rel="noopener";a.innerHTML='<button>▶ Watch Your Video</button>';v.appendChild(a)}
+else{v.innerHTML='<div style="font-size:3rem">🎥</div><p><b>Your special video goes here</b><br><span style="color:var(--mut)">Coming soon…</span></p>'}
+// machine
+var fut=["You are not getting older, you are just unlocking more cake levels 🎂","Age is just a number. Yours is classified, like a secret agent 🕵️","Today the calories are on vacation. Don’t disturb them 🏖️","If you were a candle, you would still be the hottest thing on the cake 🔥","Warning: this much awesomeness may cause jealousy in others ⚠️","Birthday rule #1: whoever sings off-key gets extra cake 🎤","Another year of being cute and pretending to be mature 😌","You look great for your age. Whatever it is, we lost count 🧮","Don’t cry over the candles. It’s a fire hazard, not a tragedy 🕯️","They said money can’t buy happiness. They never bought you a pizza 🍕","Your birthday is the only day the whole world must be nice to you 👑","If sleeping were an Olympic sport, you’d already have gold 🥇","Let’s be honest: you came for the cake, and we respect that 🍰","Plot twist: the real gift was the friends you annoyed along the way 🎁","Your WiFi may be slow, but your personality loads in HD 📶","Today you’re allowed to say “I’m the birthday girl” to get out of anything 😎"];
+var cmp=["You make ordinary days feel like parties 🎉","Your smile has better lighting than any filter ✨","You are the human version of a warm hug 🤗","The world got a lot more fun when you showed up 🌍","Strong, smart and stylish. Unfair, honestly 😎"];
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function funny(){document.getElementById("gen").textContent=pick(fut)}
+function compliment(){document.getElementById("gen").textContent=pick(cmp);boom()}
+// hack prank
+var lines=["> Connecting to Warisha’s device…","> Bypassing firewall…… [OK]","> Accessing photo gallery…… found 4,382 selfies 🤳","> Downloading secret snacks list…… [DONE]","> Reading chat history…… WOW, so many memes","> Uploading data to the Birthday Server…","","⚠ YOUR DEVICE HAS BEEN HACKED ⚠"];
+function hack(){var h=document.getElementById("hk"),o=document.getElementById("hko"),j=document.getElementById("hkj"),b=document.getElementById("hkb");h.style.display="block";o.textContent="";j.style.display="none";b.style.display="none";var i=0;(function n(){if(i<lines.length){o.textContent+=lines[i++]+"\n";setTimeout(n,700)}else{setTimeout(function(){j.innerHTML="😂 JOKING! 😂<br><span style=\"font-size:.6em\">Your device is totally safe. The only thing stolen today is the last slice of cake. Happy Birthday Warisha! 🎂💖</span>";j.style.display="block";b.style.display="inline-block";boom()},900)}})()}
+function closeHack(){document.getElementById("hk").style.display="none"}
+</script>
+</body>
+</html>
